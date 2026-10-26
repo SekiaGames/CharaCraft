@@ -1,0 +1,60 @@
+{
+ "_readme": "动补页左侧（步骤面板）＋顶部标题的所有文案都在这里。改完刷新页面就生效，不用重启服务。desc / intro 按 HTML 渲染（可写 <b> <code> <br>）。占位符：{case} 案例目录名、{name} 交付物名（output/<名字>.json）、{acts} 动作列表（如 idle、walk、run）、{n_acts} 动作个数。",
+ "page": {
+  "title": "CharaCraft",
+  "tabs": {
+   "motion": "动补",
+   "skel": "骨架",
+   "attach": "附件"
+  }
+ },
+ "panel": {
+  "title": "步骤",
+  "actTitle": "动作选择",
+  "actHint": "只切右边这些编辑面板（矩阵 / 预览 / 关键帧 / 帧预览）；步骤会自己遍历所有动作",
+  "actsTip": "clip-{act}/",
+  "empty": "在右上角选择一个案例目录（用「选择文件夹」，或直接粘贴绝对路径）。",
+  "runAll": "跑一遍",
+  "runAllHint": "从深度 0 开始，每层里的步骤依次跑一遍；跑完一层重算下一层能跑什么",
+  "preview": "spine 预览",
+  "refresh": "刷新"
+ },
+ "steps": {
+  "sync": {
+   "label": "同步PSD",
+   "desc": "将SeeThrough工作流输出的PSD文件迁移到input目录"
+  },
+  "frames": {
+   "label": "抽帧",
+   "desc": "将视频源中的帧抽出为视频帧图片"
+  },
+  "split": {
+   "label": "分析PSD图层",
+   "desc": "从PSD源获取图层清单"
+  },
+  "probe": {
+   "label": "DWPose检测生成骨骼关键帧",
+   "desc": "图像分析得到DWPose关键点后转换为骨骼关键帧,计算骨骼的位置、缩放，缩放=实测长度/中位长度。"
+  },
+  "autokeys": {
+   "label": "自动挑帧",
+   "desc": "{n_acts} 个动作各跑一遍：读 dwpose_bones.json，找周期、从抬脚那帧起按相位等分挑关键帧 → clip-<动作>/keyframes.json。<b>只要没有手动挑帧记录这一步就重跑</b>：手动记录是 edit/Edit-FrameSheet-<动作>.json，页面上一关「自动挑帧」开关就会写出来，一旦有了它这一步就跳过，帧表交给你在页面上增删；再打开开关会删掉记录重新挑"
+  },
+  "pack": {
+   "label": "打包图集",
+   "desc": "{n_acts} 个动作各跑一遍：按「部件 × 批次」里那个动作的选择（整层禁用的跳过）<b>直接从 PSD 取图</b> —— 一个图层就是一整块贴图，只按 alpha 裁紧，不切左右/上下段；再<b>装成图集页</b> → output/{name}-<动作>.png，并把那一页写进 output/{name}.atlas（多页图集）。动作取自 input/clip-*.mp4"
+  },
+  "skin": {
+   "label": "自动刷权重",
+   "desc": "{n_acts} 个动作各跑一遍：读 PSD 里每个部件的画布位置 + 附件表 + 骨架，算出附件相对骨骼的摆放 → base/rig/<动作>.json。附件挂 1 根骨 = 全权重 region；挂 2 根以上 = 按骨链烘 uv / 顶点 / 骨权重做成 mesh。atlas 只记贴图在页里的位置，摆放只有这里存，所以「合并 + 预览」读它"
+  },
+  "anim": {
+   "label": "关键帧转动画",
+   "desc": "{n_acts} 个动作各跑一遍：读 dwpose_bones.json 的逐帧骨骼角（帧表取 edit/Edit-FrameSheet-<动作>.json，没有就用 clip-<动作>/keyframes.json；再加 edit/Edit-BoneKeys-<动作>.json 手改过的点 + edit/Edit-BoneKeys-<动作>.json 手改过的点），换算成骨骼局部旋转/缩放/髋部位移，再套骨架 role 做截断（膝/臂/躯干）和接地校正、首尾闭环 → clip-<动作>/animations.json。中间不再落 tracks.json —— 换算和接骨架是同一步"
+  },
+  "cutpack": {
+   "label": "合并 + 预览",
+   "desc": "把所有动作的皮肤片段和轨道合进一份 output/{name}.json（每个动作一条动画，用槽位附件时间轴切到自己那版贴图），再拼一张 preview.html（内嵌那份 atlas 和各页图）"
+  }
+ }
+}

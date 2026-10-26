@@ -1,0 +1,22 @@
+{
+ "version": 2,
+ "batch": "155002",
+ "canvas": [1024, 1024],
+ "rows": [
+  {"layer": "headwear-back", "bones": [4], "z": 0, "enabled": true},
+  {"layer": "back hair", "bones": [4], "z": 1, "enabled": true},
+  {"layer": "handwear-l", "bones": [5, 6], "z": 2, "enabled": true},
+  {"layer": "objects", "bones": [7], "z": 3, "enabled": true},
+  {"layer": "footwear-l", "bones": [13], "z": 4, "enabled": true},
+  {"layer": "legwear-l", "bones": [11, 12], "z": 5, "enabled": true},
+  {"layer": "legwear-r", "bones": [14, 15], "z": 6, "enabled": true},
+  {"layer": "footwear-r", "bones": [16], "z": 7, "enabled": true},
+  {"layer": "bottomwear", "bones": [1], "z": 8, "enabled": true},
+  {"layer": "neck", "bones": [3, 4], "z": 9, "enabled": true},
+  {"layer": "topwear", "bones": [1], "z": 10, "enabled": true},
+  {"layer": "face", "bones": [4], "z": 11, "enabled": true},
+  {"layer": "handwear-r", "bones": [8, 9], "z": 12, "enabled": true},
+  {"layer": "front hair", "bones": [4], "z": 13, "enabled": true},
+  {"layer": "headwear", "bones": [4], "z": 14, "enabled": true}
+ ]
+}

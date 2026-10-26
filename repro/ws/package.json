@@ -1,0 +1,23 @@
+{
+  "name": "game-aesthetic-asset",
+  "private": true,
+  "type": "module",
+  "description": "游戏美术素材管线：脚本与验证工具",
+  "scripts": {
+    "verify-rig": "node scripts/spine-verify.mjs"
+  },
+  "dependencies": {
+    "@esotericsoftware/spine-core": "~4.2.0"
+  },
+  "devDependencies": {
+    "@esotericsoftware/spine-threejs": "^4.2.120",
+    "@esotericsoftware/spine-webgl": "^4.2.120",
+    "@napi-rs/canvas": "^1.0.13",
+    "@pixiv/three-vrm-springbone": "3.5.5",
+    "cannon-es": "0.20.0",
+    "mmd-parser": "^1.0.4",
+    "playwright-core": "1.64.0",
+    "three": "^0.184.0",
+    "three-r171": "npm:three@^0.171.0"
+  }
+}

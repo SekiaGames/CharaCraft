@@ -1,0 +1,41 @@
+
+
+.DS_Store
+
+/repro/studio/.cache
+**/__pycache__/
+/Roxy/clip-idle/frames
+/Roxy/clip-run/frames
+/Roxy/clip-walk/frames
+Roxy/clip-idle/source_sha1_mark.json
+Roxy/clip-run/source_sha1_mark.json
+Roxy/clip-walk/source_sha1_mark.json
+Roxy/base/batches/155002.json
+Roxy/base/batches/164134.json
+
+# DWPose检测生成骨骼关键帧
+Roxy/clip-walk/dwpose_bones.json
+Roxy/clip-idle/dwpose_bones.json
+Roxy/clip-run/dwpose_bones.json
+/Roxy/output
+# 权重
+Roxy/base/rig/idle.json
+Roxy/base/rig/run.json
+Roxy/base/rig/walk.json
+# 关键帧选择
+Roxy/clip-idle/keyframes.json
+Roxy/clip-run/keyframes.json
+Roxy/clip-walk/keyframes.json
+# 勾选部件
+Roxy/input/selection-idle.json
+Roxy/input/selection-run.json
+Roxy/input/selection-walk.json
+Roxy/clip-walk/animations.json
+Roxy/clip-run/animations.json
+Roxy/clip-idle/animations.json
+Roxy/clip-idle/dwpose_sha1_mark.json
+Roxy/clip-run/dwpose_sha1_mark.json
+Roxy/clip-walk/dwpose_sha1_mark.json
+
+# 依赖
+node_modules/

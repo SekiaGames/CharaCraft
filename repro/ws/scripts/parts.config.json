@@ -1,0 +1,32 @@
+{
+  "_readme": [
+    "部件合成规则。改这个文件就能改「哪些层拼成哪个部件」，不用动代码。",
+    "name  = 输出文件名（<name>.png）；layers = 按顺序取的「基名」列表。",
+    "  match : \"family\"（默认）会把 `ears` 自动扩成 ears-l / ears-r；",
+    "          \"exact\" 只认字面名字。",
+    "  side  : \"l\" / \"r\" —— 这个部件只取画布的左/右半边：",
+    "          · 整块就落在这一侧的层，直接用；",
+    "          · 跨中线的那块（模型把两条腿并成一块）按 split 算出的中线裁一半；",
+    "          · `clip: false` 则不裁，整块都要（斜挎的道具之类）。",
+    "  注意模型给的 -l/-r 是「角色的左右」，和画面左右经常相反，所以这里一律按画面判。",
+    "split.from : 拿哪些层的内容范围算「画面左右分界」（默认只用 legwear = 两腿中线）；",
+    "             一个都取不到就退回画布中线。",
+    "单案例特调：在 <素材目录>/input/parts.json 放一份同样结构的文件，整份覆盖本文件。"
+  ],
+  "version": 1,
+  "split": { "from": ["legwear"] },
+  "parts": [
+    {
+      "name": "body",
+      "layers": ["back hair", "bottomwear", "neck", "topwear", "face",
+                 "front hair", "headwear", "earwear", "eyewear", "neckwear",
+                 "tail", "wings", "ears", "eyebrow", "eyelash", "eyewhite",
+                 "irides", "nose", "mouth"]
+    },
+    { "name": "leg-l", "side": "l", "layers": ["legwear", "footwear"] },
+    { "name": "leg-r", "side": "r", "layers": ["legwear", "footwear"] },
+    { "name": "arm-l", "side": "l", "layers": ["handwear"] },
+    { "name": "arm-r", "side": "r", "layers": ["handwear"] },
+    { "name": "weapon", "layers": ["objects"] }
+  ]
+}

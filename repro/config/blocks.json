@@ -1,0 +1,13 @@
+{
+ "steps": {
+  "sync": ["act", "skview", "skprops", "gif", "frame", "loop"],
+  "split": ["act", "mx", "pv"],
+  "pack": ["act", "mx", "pv"],
+  "skin": ["act", "pv"],
+  "frames": ["act", "motion"],
+  "probe": ["act", "frame"],
+  "autokeys": ["act", "motion", "gif", "sel", "keys", "loop"],
+  "anim": ["act", "sel", "keys", "frame", "loop"],
+  "cutpack": ["act", "pv", "frame", "loop"]
+ }
+}

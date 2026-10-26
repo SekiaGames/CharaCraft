@@ -1,0 +1,176 @@
+<!doctype html>
+<html lang="zh">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Spine 工作台</title>
+<link rel="stylesheet" href="/css/app.css">
+</head>
+<body>
+<header>
+  <h1 id="apptitle">Spine 工作台</h1>
+  <div class="tabs" id="tabs">
+    <button class="tab on" data-tab="motion">动补</button>
+    <button class="tab" data-tab="skel">骨架</button>
+    <button class="tab" data-tab="attach">附件</button>
+  </div>
+  <div class="picker">
+    <input id="dir" placeholder="点「选择文件夹」，或直接粘贴路径" spellcheck="false">
+    <button id="browse">选择文件夹…</button>
+    <button id="load">载入</button>
+  </div>
+  <button id="hot" class="hot" hidden></button>
+</header>
+
+<main>
+  <div style="display:grid;gap:18px">
+
+    <section class="panel" id="panelAttach" hidden>
+      <h2>附件<span class="hint" id="athint">—</span></h2>
+      <div class="at-bar">
+        <button id="atSave">保存</button>
+        <button id="atAdd">+ 添加图层</button>
+        <span class="at-dirty" id="atDirty"></span>
+      </div>
+      <div class="at-wrap"><table class="at" id="atTable"></table></div>
+      <div class="at-foot" id="atFoot"></div>
+    </section>
+
+    <section class="panel" id="panelSkelInfo" hidden>
+      <h2>骨架<span class="hint" id="skihint">—</span></h2>
+      <div class="sk-bar" id="skbar"></div>
+      <div class="ski" id="ski"></div>
+      <div class="sk-foot" id="skfoot"></div>
+    </section>
+
+    <section class="panel" id="panelSteps">
+      <h2><span id="stepstitle">步骤</span><span class="hint" id="blkstate"></span></h2>
+      <ul class="steps" id="steps"></ul>
+      <div class="toolbar">
+        <button id="runAll" title="">跑一遍</button>
+        <button id="openPreview">spine 预览</button>
+        <button id="refresh">刷新</button>
+        <span class="qhint" id="dirhint"></span>
+      </div>
+    </section>
+  </div>
+
+  <div class="col-right" style="display:grid;gap:18px">
+    <section class="panel" id="panelAct" data-blk="act" hidden>
+      <h2><span id="acttitle">动作选择</span><span class="hint" id="acthint"></span></h2>
+      <div class="acts" id="acts"></div>
+    </section>
+    <section class="panel" id="panelMx" data-blk="mx" hidden>
+      <h2>部件 × 批次<span class="hint" id="mxhint">左→右 = 批次 id 小→大 · 绿框 = 首批（层名/层序以它为准）</span></h2>
+      <div class="mx-wrap" id="mx"></div>
+      <div class="mx-legend">
+        <span><i style="background:#dcefe8;border-color:#bcd9cf"></i>有内容</span>
+        <span><i style="background:#f1efe9;border-style:dashed"></i>空层</span>
+        <span><i style="box-shadow:inset 0 0 0 2px var(--ok);background:#bfe3d4"></i>首批 = 基准</span>
+        <span><i style="background:#e0a13a;border-color:#cf9028"></i>平替（用这一批的图）</span>
+        <span><i style="background:#f6ded8;border-color:#dfb3a8"></i>禁用（整层不要）</span>
+        <button id="mxclear" class="mini" title="清掉所有手动平替，全部回到首批">清空平替</button>
+        <span id="mxstate" class="qhint"></span>
+      </div>
+      <div class="mx-note" id="mxnote" hidden></div>
+    </section>
+    <section class="panel" id="panelPv" data-blk="pv" hidden>
+      <h2>部件 / 预览<span class="hint" id="pvhint">按当前选择实时叠</span>
+        <button id="pvzoom" class="mini" title="1:1 原始像素 / 适应面板宽度">1:1</button></h2>
+      <div class="pv">
+        <div class="pv-parts" id="pvparts"></div>
+        <div class="pv-shot" id="pvshot"><img id="pvimg" alt="角色预览"></div>
+      </div>
+      <div class="pv-links" id="pvlinks"></div>
+    </section>
+    <section class="panel" id="panelSkelView" data-blk="skview" hidden>
+      <h2>骨架预览<span class="hint" id="skhint">—</span></h2>
+      <div class="sk-stage" id="skstage"><img id="skimg" alt="站姿图"><svg id="sksvg"></svg></div>
+    </section>
+    <section class="panel" id="panelSkelProps" data-blk="skprops" hidden>
+      <h2>骨骼属性设置<span class="hint" id="skphint">—</span></h2>
+      <div class="sk-props" id="skprops"></div>
+    </section>
+    <section class="panel" id="panelMotion" data-blk="motion" hidden>
+      <h2>动补<span class="hint" id="mohint">—</span></h2>
+      <div class="mo-body" id="mobody"></div>
+      <div class="mo-shots" id="moshots"></div>
+    </section>
+    <section class="panel" id="panelSel" data-blk="sel" hidden>
+      <h2>关键帧<span class="hint" id="selhint">—</span></h2>
+      <div class="kf-bar">
+        <span class="dim" id="selAutoHint">—</span>
+      </div>
+      <div class="mo-shots kf" id="selframes"></div>
+    </section>
+    <section class="panel" id="panelGif" data-blk="gif" hidden>
+      <h2>关键帧动画预览<span class="hint" id="gbhint">—</span></h2>
+      <div class="fr-bar">
+        <button id="gbPlay">播放</button>
+        <button id="gbPrev">上一张</button>
+        <button id="gbNext">下一张</button>
+        <button id="gbAuto" title="按当前参数重挑一遍（自动模式开着才有意义）">重挑一遍</button>
+        <button id="selFirst" title="把预览里正在播的这一张移到循环起点，其余按同一步长重排一个完整周期">用当前帧作首帧</button>
+        <button id="gbAutoToggle" title="开着时脚本每次跑都重挑关键帧，手动增删失效；再按一下回到手动">自动挑帧</button>
+        <span class="gb-msg" id="gbMsg"></span>
+      </div>
+      <div class="gb-body">
+        <div class="gb-stage" id="gbstage"><img id="gbimg" alt=""><svg id="gbsvg"></svg></div>
+        <div class="gb-side sk-list" id="gbones"></div>
+      </div>
+    </section>
+    <section class="panel" id="panelFrame" data-blk="frame" hidden>
+      <h2>Spine 帧预览<span class="hint" id="frhint">—</span></h2>
+      <div class="fr-bar">
+        <button id="frToggle">隐藏运行时</button>
+        <input type="range" id="frAlpha" min="0" max="100" step="5" value="100">
+        <span id="frNote">—</span>
+      </div>
+      <div class="fr-bar">
+        <span class="iou" id="frIou">IoU —</span>
+        <span class="dim" id="frIouSplit">漏 — · 多 —</span>
+        <button id="frFit" title="搜一遍最优的等比缩放 + 平移，直接写进下面的滑块">拟合</button>
+        <span class="dim" id="frFitNote"></span>
+      </div>
+      <div class="fr-bar">
+        <label>缩放X<input type="range" id="frSx" min="30" max="200" step="1" value="100"><em id="frSxv">1.00</em></label>
+        <button id="frLock" class="on" title="锁定 = X/Y 一起缩放；点开锁可以分别调">等比</button>
+        <label>缩放Y<input type="range" id="frSy" min="30" max="200" step="1" value="100"><em id="frSyv">1.00</em></label>
+        <label>偏移X<input type="range" id="frDx" min="-240" max="240" step="1" value="0"><em id="frDxv">0</em></label>
+        <label>偏移Y<input type="range" id="frDy" min="-240" max="240" step="1" value="0"><em id="frDyv">0</em></label>
+        <button id="frReset">重置</button>
+      </div>
+      <div class="ke-stage" id="frstage"><img id="frimg" alt="">
+        <canvas id="frcanvas"></canvas><svg id="frsvg"></svg></div>
+    </section>
+    <section class="panel" id="panelLoop" data-blk="loop" hidden>
+      <h2>Spine帧动画预览<span class="hint" id="lphint">—</span></h2>
+      <div class="fr-bar">
+        <button id="lpPlay">播放</button>
+        <button id="lpPrev">上一帧</button>
+        <button id="lpNext">下一帧</button>
+        <span class="dim" id="lpNote"></span>
+      </div>
+      <div class="ke-stage" id="lpstage"><canvas id="lpcanvas"></canvas></div>
+    </section>
+    <section class="panel" data-blk="log">
+      <h2>日志<span class="hint" id="loghint">空闲</span></h2>
+      <pre id="log"></pre>
+    </section>
+  </div>
+</main>
+
+<script src="/vendor/spine-core.js"></script>
+<script src="/js/core.js"></script>
+<script src="/js/blocks.js"></script>
+<script src="/js/bones.js"></script>
+<script src="/js/skel.js"></script>
+<script src="/js/rt.js"></script>
+<script src="/js/motion.js"></script>
+<script src="/js/parts.js"></script>
+<script src="/js/run.js"></script>
+<script src="/js/attach.js"></script>
+<script src="/js/boot.js"></script>
+<script src="/js/hot.js"></script>
+</body>
+</html>

@@ -1,0 +1,41 @@
+{
+ "version": 2,
+ "canvas": [1024, 1024],
+ "ground": 935,
+ "calib": {
+  "1": 4.9392,
+  "4": 60.2551,
+  "5": -66.7054,
+  "6": 33.3647,
+  "7": 17.3953,
+  "8": -100.4207,
+  "9": 7.0143,
+  "10": 9.6098,
+  "11": -93.633,
+  "12": 6.0593,
+  "13": 87.5737,
+  "14": -94.5739,
+  "15": -4.5732,
+  "16": 99.1471,
+  "near": "L"
+ },
+ "bones": [
+  {"index": 0, "parent": -1, "x": 474.69, "y": 904.85, "rotation": 0, "length": 0, "role": "root"},
+  {"index": 1, "parent": 0, "x": 18.11, "y": 358.3, "rotation": 90.24, "length": 99.19, "role": "body-down", "aim": 2},
+  {"index": 2, "parent": 1, "x": 99.19, "y": 0, "rotation": 6.29, "length": 134.26, "role": "body-up", "aim": 3},
+  {"index": 3, "parent": 2, "x": 134.26, "y": -0.01, "rotation": -8.57, "length": 62.45, "role": "neck", "aim": 4},
+  {"index": 4, "parent": 3, "x": 62.45, "y": 0, "rotation": 7.03, "length": 66.16, "role": "head"},
+  {"index": 5, "parent": 3, "x": -5.05, "y": -31.73, "rotation": -165.94, "length": 111.19, "role": "arm-front-up", "aim": 6},
+  {"index": 6, "parent": 5, "x": 111.19, "y": -0.01, "rotation": 58.51, "length": 69.37, "role": "arm-front-down", "aim": 7},
+  {"index": 7, "parent": 6, "x": 69.37, "y": 0, "rotation": 22.96, "length": 34.74, "role": "hand-front"},
+  {"index": 8, "parent": 3, "x": -14.27, "y": 39.67, "rotation": 167.5, "length": 123.58, "side": "back", "role": "arm-back-up", "aim": 9},
+  {"index": 9, "parent": 8, "x": 123.58, "y": 0, "rotation": 13.11, "length": 103.06, "side": "back", "role": "arm-back-down", "aim": 10},
+  {"index": 10, "parent": 9, "x": 103.06, "y": 0.01, "rotation": 1.97, "length": 37.36, "side": "back", "role": "hand-back"},
+  {"index": 11, "parent": 1, "x": -1.23, "y": -34.36, "rotation": 172.49, "length": 146.33, "role": "leg-up", "aim": 12},
+  {"index": 12, "parent": 11, "x": 146.33, "y": 0.01, "rotation": 8.27, "length": 172.18, "role": "leg-down", "aim": 13},
+  {"index": 13, "parent": 12, "x": 172.18, "y": -0.01, "rotation": 64.24, "length": 55.51, "role": "foot-front"},
+  {"index": 14, "parent": 0, "x": -17.92, "y": 356.6, "rotation": -98.06, "length": 158.94, "side": "back", "role": "leg-up-back", "aim": 15},
+  {"index": 15, "parent": 14, "x": 158.94, "y": 0.01, "rotation": 2.04, "length": 182.24, "side": "back", "role": "leg-down-back", "aim": 16},
+  {"index": 16, "parent": 15, "x": 182.24, "y": 0.01, "rotation": 49.07, "length": 38.21, "side": "back", "role": "foot-back"}
+ ]
+}
