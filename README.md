@@ -46,6 +46,11 @@ ComfyUI插件要放到ComfyUI实例的安装目录下的插件文件夹：ComfyU
     Roxy/input目录是所有素材输入，Roxy目录下的其他目录都是生成目录
     前端执行跑一遍，得到的2D骨骼动画文件在Roxy/output目录
 
+# 关于2D骨骼动画的分析
+Spine模型浏览器预览工具：SpineAnim/preview.html
+SpineAnim目录放了一些案例Spine资源和我的效果分析
+对于初学者还是需要先了解一下2D骨骼动画的驱动机制
+
 # 本项目实现自动生成Spine动画的流程
 文生图or人物原画+图生图 得到包含人物设定的站姿图
 站姿图+图生视频 得到动作视频
